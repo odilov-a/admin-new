@@ -46,6 +46,17 @@ const More = ({ showMoreModal, moreModal }: any) => {
               {data.balance} {t("ball")}
             </b>
           </div>
+          <div className="flex items-center mb-[10px]">
+            <p className="mr-[20px]">{t("email")}:</p>
+            <p>
+              <a
+                href={`mailto:${data.email}`}
+                className="text-blue-500 hover:underline"
+              >
+                {data.email}
+              </a>
+            </p>
+          </div>
         </div>
       </div>
       <div className="flex">

@@ -99,7 +99,7 @@ const Student = () => {
         footer={null}
         centered
         title={t("More informaiton")}
-        width={500}
+        width={650}
         destroyOnClose
       >
         <More {...{ showMoreModal, moreModal }} />
