@@ -21,6 +21,9 @@ const Problem = ({ showCreateModal, createModal }: any): JSX.Element => {
       const response = await fetch("http://localhost:5001/api/tests/upload", {
         method: "POST",
         body: formData,
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
       });
       const result = await response.json();
       if (response.ok && result.data) {
