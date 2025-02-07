@@ -34,6 +34,10 @@ const More = ({ showMoreModal, moreModal }: any) => {
               </a>
             </p>
           </div>
+          <div className="flex items-center mb-[10px]">
+            <p className="mr-[20px]">{t("Last active")}:</p>
+            <b>{new Date(data.lastLogin).toLocaleString()}</b>
+          </div>
         </div>
         <div className="mr-[20px]">
           <div className="flex items-center mb-[10px]">
