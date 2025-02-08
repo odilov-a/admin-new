@@ -1,49 +1,15 @@
 import { useState } from "react";
-import { Modal, notification, Table, Button as AntButton } from "antd";
-import { Delete, Edit } from "assets/images/icons";
-import { useHooks, usePost } from "hooks";
+import { Modal, Table, Button as AntButton } from "antd";
+import { Edit } from "assets/images/icons";
+import { useHooks } from "hooks";
 import { Container } from "modules";
 import Create from "./create";
 import More from "./more";
 
 const Feedback = () => {
-  const { get, queryClient, t } = useHooks();
+  const { get, t } = useHooks();
   const [createModal, showCreateModal] = useState({ open: false, data: {} });
   const [moreModal, showMoreModal] = useState({ open: false, data: {} });
-  const { mutate } = usePost();
-
-  const onDeleteHandler = (id: string) => {
-    Modal.confirm({
-      title: t("Вы уверены что хотите удалить?"),
-      okText: t("да"),
-      okType: "danger",
-      cancelText: t("нет"),
-      onOk: () => deleteAction(id),
-    });
-  };
-
-  const deleteAction = (id: string) => {
-    if (id) {
-      mutate(
-        { method: "delete", url: `/feedbacks/${id}`, data: null },
-        {
-          onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["feedbacks"] });
-            notification.success({
-              message: t("Успешно удалена"),
-              duration: 2,
-            });
-          },
-          onError: (error) => {
-            notification.error({
-              message: get(error, "errorMessage", t("Произошло ошибка!")),
-              duration: 2,
-            });
-          },
-        }
-      );
-    }
-  };
 
   const columns = [
     {
@@ -88,21 +54,6 @@ const Feedback = () => {
               marginLeft: 8,
               borderColor: "green",
               background: "green",
-              padding: "20px 20px",
-            }}
-          />
-          <AntButton
-            icon={<Delete />}
-            onClick={(e) => {
-              {
-                e.stopPropagation();
-                onDeleteHandler(record._id);
-              }
-            }}
-            style={{
-              marginLeft: 8,
-              borderColor: "red",
-              background: "red",
               padding: "20px 20px",
             }}
           />

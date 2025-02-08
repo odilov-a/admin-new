@@ -15,12 +15,6 @@ const Feedback = ({ showCreateModal, createModal }: any): JSX.Element => {
         name="feedbacks"
         fields={[
           {
-            type: "string",
-            required: true,
-            name: "feedback",
-            value: get(data, "feedback"),
-          },
-          {
             name: "status",
             type: "boolean",
             value: get(data, "status"),
@@ -50,14 +44,6 @@ const Feedback = ({ showCreateModal, createModal }: any): JSX.Element => {
                   label={t("status")}
                   component={Fields.Switch}
                   rootClassName="mb-[10px]"
-                />
-                <Field
-                  required
-                  name="feedback"
-                  component={Fields.Textarea}
-                  rootClassName="mb-[10px]"
-                  label={t("feedback")}
-                  placeholder={t("feedback")}
                 />
                 <Button
                   size="large"
