@@ -126,46 +126,54 @@ const Student = () => {
                   />
                 </div>
                 <Row className="h-[120px] mt-[15px]">
-                  {displayItems.map((card) => {
-                    return (
-                      <Col
-                        className="flex items-baseline justify-center cursor-pointer"
-                        onClick={() =>
-                          showMoreModal({ open: true, data: card })
-                        }
-                      >
-                        <div className="mr-8 mb-4">
-                          <img
-                            className="object-cover rounded-[10px] w-[260px] h-[200px]"
-                            src={get(card, "photoUrl.0", Avatar)}
-                          />
-                          <div className="btnPanel1">
-                            {get(card, "username", "username")}
-                          </div>
-                          <div className="btnPanel2">
-                            <div
-                              className="editBtn"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                showCreateModal({ open: true, data: card });
-                              }}
-                            >
-                              <Edit />
+                  {displayItems.length === 0 ? (
+                    <div className="text-center text-gray-500 mt-4">
+                      {t("Students not found")}
+                    </div>
+                  ) : (
+                    <Row className="h-[120px] mt-[15px]">
+                      {displayItems.map((card) => {
+                        return (
+                          <Col
+                            className="flex items-baseline justify-center cursor-pointer"
+                            onClick={() =>
+                              showMoreModal({ open: true, data: card })
+                            }
+                          >
+                            <div className="mr-8 mb-4">
+                              <img
+                                className="object-cover rounded-[10px] w-[260px] h-[200px]"
+                                src={get(card, "photoUrl.0", Avatar)}
+                              />
+                              <div className="btnPanel1">
+                                {get(card, "username", "username")}
+                              </div>
+                              <div className="btnPanel2">
+                                <div
+                                  className="editBtn"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    showCreateModal({ open: true, data: card });
+                                  }}
+                                >
+                                  <Edit />
+                                </div>
+                                <div
+                                  className="deleteBtn"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    onDeleteHandler(get(card, "_id", ""));
+                                  }}
+                                >
+                                  <Delete />
+                                </div>
+                              </div>
                             </div>
-                            <div
-                              className="deleteBtn"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                onDeleteHandler(get(card, "_id", ""));
-                              }}
-                            >
-                              <Delete />
-                            </div>
-                          </div>
-                        </div>
-                      </Col>
-                    );
-                  })}
+                          </Col>
+                        );
+                      })}
+                    </Row>
+                  )}
                 </Row>
               </div>
             );
