@@ -15,6 +15,14 @@ interface MenuItem {
   route?: string;
 }
 
+const settingslist = [
+  { id: 1, title: "O'zbekcha", shortName: "O'z" },
+  { id: 2, title: "Русский", shortName: "Ру" },
+  { id: 3, title: "English", shortName: "En" },
+  { id: 4, title: "Settings", shortName: "St" },
+  { id: 5, title: "Tests", shortName: "TC" },
+];
+
 const menuItems: MenuItem[] = [
   {
     key: "problems",
@@ -76,4 +84,4 @@ export default {
   menuItems,
 };
 
-export { gen4 };
+export { gen4, settingslist };

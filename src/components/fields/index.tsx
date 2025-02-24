@@ -10,6 +10,7 @@ import Textarea from "./textarea";
 import Switch from "./switch";
 import FileUpload3 from "./fileUpload3";
 import testUpload from "./testUpload";
+import Ckeditor from "./Ckeditor";
 
 export default {
   Input,
@@ -24,4 +25,5 @@ export default {
   FileUploadEmpower2,
   FileUpload3,
   testUpload,
+  Ckeditor,
 };

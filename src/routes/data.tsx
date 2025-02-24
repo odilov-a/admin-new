@@ -6,6 +6,8 @@ const Student = lazy(() => import("pages/student"));
 const Subject = lazy(() => import("pages/subject"));
 const Teacher = lazy(() => import("pages/teacher"));
 const Problem = lazy(() => import("pages/problem"));
+const ProblemCreate = lazy(() => import("pages/problem/update"));
+const ProblemUpdate = lazy(() => import("pages/problem/update"));
 const NotFound = lazy(() => import("pages/notFound"));
 const Feedback = lazy(() => import("pages/feedback"));
 const Difficulty = lazy(() => import("pages/difficulty"));
@@ -60,8 +62,20 @@ const privateRoutes: IRoute[] = [
   {
     path: "/problems",
     key: "problems",
-    title: "Masalalar",
+    title: "problems",
     element: <Problem />,
+  },
+  {
+    path: "/problems/create",
+    key: "problem-create",
+    title: "problem-create",
+    element: <ProblemCreate />,
+  },
+  {
+    path: "/problems/update/:id",
+    key: "problem-update",
+    title: "problem-update",
+    element: <ProblemUpdate />,
   },
   {
     path: "/feedbacks",
