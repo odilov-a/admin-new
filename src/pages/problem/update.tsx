@@ -301,7 +301,7 @@ const Create = () => {
                         />
                         <Field
                           name="subject"
-                          url="/subjects/teacher/subject"
+                          url="/subjects"
                           optionValue="_id"
                           optionLabel="title"
                           label={t("subjects")}
