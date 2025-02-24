@@ -505,3 +505,18 @@ body.dark {
   overflow: hidden;
   width: 400px;
 }
+
+.btnPanel1 {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  color: black;
+  background-color: #ffffff;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  padding: 5px 13px;
+}
