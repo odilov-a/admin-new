@@ -6,6 +6,7 @@ import { Fields, Button } from "components";
 import { helpers, utils } from "services"
 import { useGet, useHooks } from "hooks";
 import { gen4 } from "services/helpers";
+import { Checkbox } from "antd";
 
 const Form = ({ setFieldValue, values }: any) => {
   const { get, t } = useHooks();
@@ -43,7 +44,6 @@ const Form = ({ setFieldValue, values }: any) => {
     })
   }
 
-  // console.log(values.questions[0].uid)
 
   return (
     <>
@@ -78,7 +78,7 @@ const Form = ({ setFieldValue, values }: any) => {
               name="subject"
               url="/subjects"
               optionValue="_id"
-              optionLabel="title"
+              optionLabel="titleEn"
               label={t("subjects")}
               placeholder={t("subjects")}
               component={Fields.AsyncSelect}
@@ -107,7 +107,6 @@ const Form = ({ setFieldValue, values }: any) => {
                 accept="image/png, image/jpeg, image/jpg"
               />
             </div>
-
           </div>
         </div>
         <div className="mb-[24px]">
@@ -155,10 +154,13 @@ const Form = ({ setFieldValue, values }: any) => {
                         }}
                       />
                       <Field
-                        className=''
-                        name={`questions[${index}].type`}
                         component={Fields.Select}
+                        name={`questions[${index}].type`}
                         label="type"
+                        placeholder={t("To'lov turini tanlang")}
+                        optionLabel="label"
+                        optionValue='value'
+                        isClearable={true}
                         options={[
                           {
                             label: "1",
@@ -169,55 +171,63 @@ const Form = ({ setFieldValue, values }: any) => {
                             value: 2,
                           },
                         ]}
-                        optionValue='value'
-                        optionLabel='label'
-                        isClearable={true}
-                        onChange={(e: any) => (setFieldValue(`questions[${index}].type`, e))}
                       />
-
                     </div>
                   </div>
                   <div className="w-[48%]">
-                    {get(item, "answers", []).map((ans: any, index: number) => {
+                    {get(item, "answers", []).map((ans: any, idx: number) => {
                       return (
                         <div key={index} className="flex mb-[30px]">
                           <div className="w-full">
                             <Field
                               rootClassName="w-full mr-[10px] mb-[15px]"
                               component={Fields.Input}
-                              name={`questions[${index}].answerUz`}
+                              name={`questions[${index}].answers[${idx}].answerUz`}
                               type="text"
                               placeholder={t("answer (uz)")}
                               label={t("answer (uz)")}
                               size="large"
                               onChange={(e: any) => {
-                                setFieldValue(`questions[${index}].titleUz`, e.target.value)
+                                setFieldValue(`questions[${index}].answers[${idx}].answerUz`, e.target.value)
                               }}
                             />
                             <Field
                               rootClassName="w-full mr-[10px] mb-[15px]"
                               component={Fields.Input}
-                              name={`questions[${index}].answerRu`}
+                              name={`questions[${index}].answers[${idx}].answerRu`}
                               type="text"
                               placeholder={t("answer (ru)")}
                               label={t("answer (ru)")}
                               size="large"
                               onChange={(e: any) => {
-                                setFieldValue(`questions[${index}].titleUz`, e.target.value)
+                                setFieldValue(`questions[${index}].answers[${idx}].answerRu`, e.target.value)
                               }}
                             />
                             <Field
                               rootClassName="w-full mr-[10px]"
                               component={Fields.Input}
-                              name={`questions[${index}].answerEn`}
+                              name={`questions[${index}].answers[${idx}].answerEn`}
                               type="text"
                               placeholder={t("answer (en)")}
                               label={t("answer (en)")}
                               size="large"
                               onChange={(e: any) => {
-                                setFieldValue(`questions[${index}].answerEn`, e.target.value)
+                                setFieldValue(`questions[${index}].answers[${idx}].answerEn`, e.target.value)
                               }}
                             />
+                            <Checkbox
+                              className="mt-[20px]"
+                              checked={values.questions[index].answers[idx].isCorrect}
+                              onChange={(e: any) => {
+                                const updatedAnswers = values.questions[index].answers.map((ans: any, ansIdx: number) => ({
+                                  ...ans,
+                                  isCorrect: ansIdx === idx ? e.target.checked : false,
+                                }));
+                                setFieldValue(`questions[${index}].answers`, updatedAnswers);
+                              }}
+                            >
+                              true answer
+                            </Checkbox>
                           </div>
                           <div className="h-full contents">
                             <div className="ml-[8px] flex flex-col justify-center">
@@ -230,7 +240,7 @@ const Form = ({ setFieldValue, values }: any) => {
                                   <MinusCircleOutlined style={{ color: "red" }} />
                                 </button>
                               )}
-                              {(get(item, "answers", []).length - 1) === index && (
+                              {(get(item, "answers", []).length - 1) === idx && (
                                 <button
                                   type="button"
                                   className="w-[30px] h-[100%] border-2 rounded-[5px]"

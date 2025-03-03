@@ -1,40 +1,46 @@
-import { Button } from "components";
+import { Button, DotBtn } from "components";
 import { Delete, Edit, CreateDoc } from "assets/images/icons";
 import { useHooks, usePost } from "hooks";
 import { useState } from "react";
-import { Modal, notification } from "antd";
+import { Modal, notification, Table } from "antd";
+import Container from "modules/container";
 
 const Test = () => {
   const { get, queryClient, t, navigate } = useHooks();
   const [createModal, showCreateModal] = useState({ open: false, data: {} });
   const { mutate } = usePost();
 
-  const onDeleteHandler = (id: string) => {
+  const onDeleteHandler = (row: any) => {
+    const id = get(row, "_id");
     Modal.confirm({
-      title: t("Вы уверены что хотите удалить?"),
-      okText: t("да"),
+      title: t("O'chirishni tasdiqlaysizmi") + "?",
+      cancelText: t("yo'q"),
       okType: "danger",
-      cancelText: t("нет"),
+      okText: t("ha"),
       onOk: () => deleteAction(id),
     });
   };
 
-  const deleteAction = (id: string) => {
+  const deleteAction = (id: any) => {
     if (id) {
       mutate(
-        { method: "delete", url: `/difficulties/${id}`, data: null },
+        { method: "delete", url: `/tests/${id}`, data: null },
         {
           onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["difficulties"] });
-            notification.success({
-              message: t("Успешно удалена"),
+            queryClient.invalidateQueries({
+              queryKey: [`tests`],
+            });
+            notification["success"]({
+              message: t("Успешно удален!"),
               duration: 2,
             });
           },
-          onError: (error) => {
-            notification.error({
-              message: get(error, "errorMessage", t("Произошло ошибка!")),
-              duration: 2,
+          onError: (error: any) => {
+            notification["error"]({
+              message: t(
+                get(error, "response.data.error", "Произошло ошибка!")
+              ),
+              duration: get(error, "response.data.message") ? 4 : 2,
             });
           },
         }
@@ -44,13 +50,106 @@ const Test = () => {
 
   return (
     <div>
-      <Button
-        title={t("Create test")}
-        icon={<CreateDoc />}
-        size="large"
-        className="bg-[#002855]"
-        onClick={() => navigate('/test/create')}
-      />
+      <Container.All
+        url="/tests"
+        name="tests"
+      // params={{
+      //   limit: 5,
+      //   page,
+      //   extra: {
+      //     search: searchQuery,
+      //     start: params.start && params.start,
+      //     end: params.end && params.end
+      //   }
+      // }}
+      >
+        {({ meta, items }) => {
+          return (
+            <div>
+              <div className="page-heading">
+                <div className="page-heading__right">
+                  <Button
+                    title={t("Create test")}
+                    icon={<CreateDoc />}
+                    size="large"
+                    className="bg-[#002855]"
+                    onClick={() => navigate('/test/create')}
+                  />
+                </div>
+              </div>
+              <Table
+                dataSource={items}
+                columns={[
+                  {
+                    key: "nameUz",
+                    align: "left",
+                    title: t("NameUz"),
+                    dataIndex: "nameUz",
+                    className: "w-[80px]",
+                    render: (value) => (
+                      <div className="flex items-center">{value}</div>
+                    ),
+                  },
+                  {
+                    key: "nameEn",
+                    align: "left",
+                    title: t("NameEn"),
+                    dataIndex: "nameEn",
+                    className: "w-[80px]",
+                    render: (value) => (
+                      <div className="flex items-center">{value}</div>
+                    ),
+                  },
+                  {
+                    key: "nameRu",
+                    align: "left",
+                    title: t("NameRu"),
+                    dataIndex: "nameRu",
+                    className: "w-[80px]",
+                    render: (value) => (
+                      <div className="flex items-center">{value}</div>
+                    ),
+                  },
+                  {
+                    key: "point",
+                    align: "left",
+                    title: t("Point"),
+                    dataIndex: "point",
+                    className: "w-[80px]",
+                    render: (value) => (
+                      <div className="flex items-center">{value}</div>
+                    ),
+                  },
+                  {
+                    title: t("Amallar"),
+                    align: "center",
+                    className: "w-[1px]",
+                    render: (value, row) => (
+                      <DotBtn
+                        row={row}
+                        editFunction={() =>
+                          navigate(`/test/update/${get(row, "_id")}`)
+                        }
+                        deleteFunction={() => onDeleteHandler(row)}
+                      />
+                    ),
+                  },
+                ]}
+              />
+              {/* {meta && meta.perPage && (
+                    <div className="pt-[20px] flex justify-end">
+                      <Pagination
+                        current={meta.currentPage}
+                        pageSize={meta.perPage}
+                        total={meta.totalCount}
+                        onChange={setPage}
+                      />
+                    </div>
+                  )} */}
+            </div>
+          );
+        }}
+      </Container.All>
     </div>
   )
 }

@@ -27,7 +27,7 @@ const TestCreate = (): JSX.Element => {
   return (
     <div>
       <Container.Form
-        name="parties"
+        name="tests"
         url={get(data, "_id") ? `tests/${get(data, "_id")}` : "tests"}
         method={get(data, "_id") ? "put" : "post"}
         fields={[
@@ -61,9 +61,9 @@ const TestCreate = (): JSX.Element => {
             value: get(data, "point", null),
           },
           {
-            name: "files",
+            name: "photoUrl",
             type: "any",
-            value: get(data, "files", null),
+            value: get(data, "photoUrl", null),
           },
           {
             name: "questions",
@@ -74,8 +74,8 @@ const TestCreate = (): JSX.Element => {
                 titleUz: curr.titleUz,
                 titleRu: curr.titleRu,
                 titleEn: curr.titleEn,
-                type: curr.type.value,
-                answers: get(curr, 'answers', []).map((item: any) => (get(data, 'answers', []).length > 0 ?
+                type: curr.type,
+                answers: get(curr, 'answers', []).map((item: any) => (get(curr, 'answers', []).length > 0 ?
                   { uid: gen4(), answerUz: item.answerUz, answerRu: item.answerRu, answerEn: item.answerEn, isCorrect: item.isCorrect }
                   : { uid: gen4(), answerUz: "", answerRu: "", answerEn: "", isCorrect: "" })),
               }]), []) : [{
@@ -84,7 +84,7 @@ const TestCreate = (): JSX.Element => {
                 titleRu: "",
                 titleEn: "",
                 type: 1,
-                answers: [{ answerUz: "", answerRu: "", answerEn: "", isCorrect: false }],
+                answers: [{ uid: gen4(), answerUz: "", answerRu: "", answerEn: "", isCorrect: false }],
               }],
             onSubmitValue: (value, values) => (
               value.map((item: any, idx: any) => ({
@@ -98,6 +98,7 @@ const TestCreate = (): JSX.Element => {
           }
         ]}
         onSuccess={(data, resetForm, query) => {
+          navigate('/test')
           queryClient.invalidateQueries({
             queryKey: [`test-${id}`],
           })
