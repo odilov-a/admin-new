@@ -96,8 +96,13 @@ const App = (props: Props) => {
       formData.append("file", file);
 
       const response = await axios.post(
-        "http://192.168.1.102:5001/api/files/upload",
-        formData
+        `${process.env.REACT_APP_ROOT_FILE_UPLOAD}/files/upload`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${storage.get("token")}`,
+          },
+        }
       );
 
       if (response.status === 200) {
