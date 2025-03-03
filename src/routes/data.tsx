@@ -10,6 +10,8 @@ const ProblemCreate = lazy(() => import("pages/problem/update"));
 const ProblemUpdate = lazy(() => import("pages/problem/update"));
 const NotFound = lazy(() => import("pages/notFound"));
 const Feedback = lazy(() => import("pages/feedback"));
+const Test = lazy(() => import("pages/test"));
+const TestUpdate = lazy(() => import("pages/test/update"));
 const Difficulty = lazy(() => import("pages/difficulty"));
 const LocalizationPanel = lazy(() => import("pages/localizationPanel"));
 
@@ -88,6 +90,24 @@ const privateRoutes: IRoute[] = [
     key: "charts",
     title: "Hisobotlar",
     element: <Chart />,
+  },
+  {
+    path: "/test",
+    key: "test",
+    title: "Testlar",
+    element: <Test />,
+  },
+  {
+    path: "/test/create",
+    key: "test-create",
+    title: "Test qo'shish",
+    element: <TestUpdate />,
+  },
+  {
+    path: "/test/update/:id",
+    key: "test-update",
+    title: "Testni O'zgartirish",
+    element: <TestUpdate />,
   },
   {
     path: "/translations",

@@ -5,6 +5,7 @@ import {
   BookOutlined,
   UserAddOutlined,
   BellOutlined,
+  OrderedListOutlined,
 } from "@ant-design/icons";
 
 interface MenuItem {
@@ -20,7 +21,7 @@ const settingslist = [
   { id: 2, title: "Русский", shortName: "Ру" },
   { id: 3, title: "English", shortName: "En" },
   { id: 4, title: "Settings", shortName: "St" },
-  { id: 5, title: "Tests", shortName: "TC" },
+  { id: 5, title: "Tests", shortName: "Tc" },
 ];
 
 const menuItems: MenuItem[] = [
@@ -53,6 +54,12 @@ const menuItems: MenuItem[] = [
     label: "Fanlar",
     icon: <BookOutlined />,
     route: "/subjects",
+  },
+  {
+    key: "test",
+    label: "Test",
+    icon: <OrderedListOutlined />,
+    route: "/test",
   },
   {
     key: "charts",

@@ -45,7 +45,7 @@ const App = (props: Props) => {
     label,
     limit = 1,
     listType,
-    onSuccess = () => {},
+    onSuccess = () => { },
     hasSuccess = false,
     customDelete = true,
   } = props;
@@ -96,7 +96,7 @@ const App = (props: Props) => {
       formData.append("file", file);
 
       const response = await axios.post(
-        "http://localhost:5001/api/files/upload",
+        "http://192.168.1.102:5001/api/files/upload",
         formData
       );
 
