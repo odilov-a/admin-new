@@ -4,6 +4,7 @@ import { Modal, Upload, UploadFile, UploadProps, message } from "antd";
 import { FieldProps } from "formik";
 import axios from "axios";
 import { useHooks } from "hooks";
+import { storage } from "services";
 
 //@ts-ignore
 type FileType = Parameters<UploadProps["beforeUpload"]>[0];
@@ -73,8 +74,13 @@ const ImageUpload: React.FC<Props> = ({
       formData.append("file", file);
 
       const response = await axios.post(
-        "http://localhost:5001/api/tests/upload",
-        formData
+        `${process.env.REACT_APP_ROOT_FILE_UPLOAD}/tests/upload`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${storage.get("token")}`,
+          },
+        }
       );
 
       if (response.status === 200) {

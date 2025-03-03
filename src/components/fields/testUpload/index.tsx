@@ -86,8 +86,13 @@ const App = (props: Props) => {
       formData.append("file", file);
 
       const response = await axios.post(
-        "http://localhost:5001/api/tests/upload",
-        formData
+        `${process.env.REACT_APP_ROOT_FILE_UPLOAD}/tests/upload`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${storage.get("token")}`,
+          },
+        }
       );
 
       if (response.status === 200) {
