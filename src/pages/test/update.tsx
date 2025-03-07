@@ -1,28 +1,27 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { notification, Spin } from "antd";
-import { Field } from "formik";
+// import { Field } from "formik";
 
 import { Container } from "modules";
 import { useGet, useHooks } from "hooks";
 import { gen4 } from "services/helpers";
-import { utils } from "services";
-import { Fields } from "components";
+// import { utils } from "services";
+// import { Fields } from "components";
 
 import Form from "./form";
 
 const TestCreate = (): JSX.Element => {
-
   const { get, t, params, queryClient, navigate } = useHooks();
-  let id = get(params, "id")
+  let id = get(params, "id");
 
   const { data: testData } = useGet({
     name: `test-${id}`,
     url: `/tests/test/${id}`,
-    onSuccess: () => { },
-    onError: () => { }
+    onSuccess: () => {},
+    onError: () => {},
   });
 
-  const data = get(testData, "data")
+  const data = get(testData, "data");
 
   return (
     <div>
@@ -60,50 +59,88 @@ const TestCreate = (): JSX.Element => {
             type: "number",
             value: get(data, "point", null),
           },
-          {
-            name: "photoUrl",
-            type: "any",
-            value: get(data, "photoUrl", null),
-          },
+          // {
+          //   name: "photoUrl",
+          //   type: "any",
+          //   value: get(data, "photoUrl", null),
+          // },
           {
             name: "questions",
             type: "array",
             value:
-              get(data, 'questions', []).length > 0 ? get(data, 'questions', []).reduce((prev: any, curr: any) => ([...prev, {
-                uid: gen4(),
-                titleUz: curr.titleUz,
-                titleRu: curr.titleRu,
-                titleEn: curr.titleEn,
-                type: curr.type,
-                answers: get(curr, 'answers', []).map((item: any) => (get(curr, 'answers', []).length > 0 ?
-                  { uid: gen4(), answerUz: item.answerUz, answerRu: item.answerRu, answerEn: item.answerEn, isCorrect: item.isCorrect }
-                  : { uid: gen4(), answerUz: "", answerRu: "", answerEn: "", isCorrect: "" })),
-              }]), []) : [{
-                uid: gen4(),
-                titleUz: "",
-                titleRu: "",
-                titleEn: "",
-                type: 1,
-                answers: [{ uid: gen4(), answerUz: "", answerRu: "", answerEn: "", isCorrect: false }],
-              }],
-            onSubmitValue: (value, values) => (
+              get(data, "questions", []).length > 0
+                ? get(data, "questions", []).reduce(
+                    (prev: any, curr: any) => [
+                      ...prev,
+                      {
+                        uid: gen4(),
+                        titleUz: curr.titleUz,
+                        titleRu: curr.titleRu,
+                        titleEn: curr.titleEn,
+                        type: curr.type,
+                        answers: get(curr, "answers", []).map((item: any) =>
+                          get(curr, "answers", []).length > 0
+                            ? {
+                                uid: gen4(),
+                                answerUz: item.answerUz,
+                                answerRu: item.answerRu,
+                                answerEn: item.answerEn,
+                                isCorrect: item.isCorrect,
+                              }
+                            : {
+                                uid: gen4(),
+                                answerUz: "",
+                                answerRu: "",
+                                answerEn: "",
+                                isCorrect: "",
+                              }
+                        ),
+                      },
+                    ],
+                    []
+                  )
+                : [
+                    {
+                      uid: gen4(),
+                      titleUz: "",
+                      titleRu: "",
+                      titleEn: "",
+                      type: 1,
+                      answers: [
+                        {
+                          uid: gen4(),
+                          answerUz: "",
+                          answerRu: "",
+                          answerEn: "",
+                          isCorrect: false,
+                        },
+                      ],
+                    },
+                  ],
+            onSubmitValue: (value, values) =>
               value.map((item: any, idx: any) => ({
                 titleUz: item.titleUz,
                 titleRu: item.titleRu,
                 titleEn: item.titleEn,
                 type: item.type.value,
-                answers: get(item, 'answers', []).map((ans: any) => ({ answerUz: ans.answerUz, answerRu: ans.answerRu, answerEn: ans.answerEn, isCorrect: ans.isCorrect })),
-              }))
-            )
-          }
+                answers: get(item, "answers", []).map((ans: any) => ({
+                  answerUz: ans.answerUz,
+                  answerRu: ans.answerRu,
+                  answerEn: ans.answerEn,
+                  isCorrect: ans.isCorrect,
+                })),
+              })),
+          },
         ]}
         onSuccess={(data, resetForm, query) => {
-          navigate('/test')
+          navigate("/test");
           queryClient.invalidateQueries({
             queryKey: [`test-${id}`],
-          })
+          });
           notification["success"]({
-            message: get(data, "_id") ? t("Успешно изменен!") : t("Успешно добавлен!"),
+            message: get(data, "_id")
+              ? t("Успешно изменен!")
+              : t("Успешно добавлен!"),
             duration: 2,
           });
         }}
@@ -112,7 +149,6 @@ const TestCreate = (): JSX.Element => {
             message: t(get(error, "response.data.error", "Произошло ошибка!")),
             duration: get(error, "response.data.message") ? 4 : 2,
           });
-          console.log("Error", error);
         }}
       >
         {({ isLoading, setFieldValue, values }) => {

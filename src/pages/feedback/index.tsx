@@ -74,7 +74,7 @@ const Feedback = () => {
             ? t("Update feedback")
             : t("Create feedback")
         }
-        width={600}
+        width={400}
         destroyOnClose
       >
         <Create {...{ showCreateModal, createModal }} />

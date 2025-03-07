@@ -1,10 +1,10 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { PlusCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { Field } from "formik";
 
 import { Fields, Button } from "components";
-import { helpers, utils } from "services"
-import { useGet, useHooks } from "hooks";
+// import { helpers, utils } from "services";
+import { useHooks } from "hooks";
 import { gen4 } from "services/helpers";
 import { Checkbox } from "antd";
 
@@ -13,37 +13,49 @@ const Form = ({ setFieldValue, values }: any) => {
 
   const removeMultiBox = (uid: any) => {
     const newArray = values.questions.filter((f: any) => f.uid !== uid);
-    setFieldValue("questions", newArray)
-  }
+    setFieldValue("questions", newArray);
+  };
 
   const addMultiBox = () => {
-    setFieldValue("questions", [...values.questions, {
-      // productId: null,
-      uid: gen4(),
-      answers: [{ answerUz: "", answerRu: "", answerEn: "", isCorrect: false }],
-    }]);
-  }
+    setFieldValue("questions", [
+      ...values.questions,
+      {
+        // productId: null,
+        uid: gen4(),
+        answers: [
+          { answerUz: "", answerRu: "", answerEn: "", isCorrect: false },
+        ],
+      },
+    ]);
+  };
 
   const removeAnsBox = (uid: any, ansId: any) => {
     values.questions.map((item: any, idx: number) => {
       if (uid === item.uid) {
-        const newArray = get(values.questions[idx], "answers").filter((f: any) => f.uid !== ansId);
-        setFieldValue(`questions[${idx}]answers`, newArray)
+        const newArray = get(values.questions[idx], "answers").filter(
+          (f: any) => f.uid !== ansId
+        );
+        setFieldValue(`questions[${idx}]answers`, newArray);
       }
-    })
-  }
+    });
+  };
 
   const addAnsBox = (uid: any) => {
     values.questions.map((item: any, idx: number) => {
       if (uid === item.uid) {
-        setFieldValue(`questions[${idx}]answers`, [...values.questions[idx].answers, {
-          uid: gen4(),
-          answerUz: "", answerRu: "", answerEn: "", isCorrect: false
-        }])
+        setFieldValue(`questions[${idx}]answers`, [
+          ...values.questions[idx].answers,
+          {
+            uid: gen4(),
+            answerUz: "",
+            answerRu: "",
+            answerEn: "",
+            isCorrect: false,
+          },
+        ]);
       }
-    })
-  }
-
+    });
+  };
 
   return (
     <>
@@ -95,7 +107,7 @@ const Form = ({ setFieldValue, values }: any) => {
               placeholder={t("point")}
               rootClassName="mb-[15px]"
             />
-            <div className="col-span-2">
+            {/* <div className="col-span-2">
               <p className="text-[#9EA3B5] px-[12px] py-[6px] bg-[#E6ECFE] dark:bg-[#454d70] rounded-[6px] inline-block mb-[12px] mr-[10px]">
                 {t("photo")}
               </p>
@@ -106,14 +118,17 @@ const Form = ({ setFieldValue, values }: any) => {
                 component={Fields.FileUpload3}
                 accept="image/png, image/jpeg, image/jpg"
               />
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="mb-[24px]">
           <p className="mb-[10px] font-bold text-[18px]">{t("Questions")}</p>
           {get(values, "questions", []).map((item: any, index: number) => {
             return (
-              <div key={item.uid} className="flex justify-between flex-col w-full border-2 border-dashed rounded-[10px] p-2 mb-[10px]">
+              <div
+                key={item.uid}
+                className="flex justify-between flex-col w-full border-2 border-dashed rounded-[10px] p-2 mb-[10px]"
+              >
                 <div className="w-full flex justify-between">
                   <div className="w-[48%] flex">
                     <div className="w-full">
@@ -126,7 +141,10 @@ const Form = ({ setFieldValue, values }: any) => {
                         label={t("question (uz)")}
                         size="large"
                         onChange={(e: any) => {
-                          setFieldValue(`questions[${index}].titleUz`, e.target.value)
+                          setFieldValue(
+                            `questions[${index}].titleUz`,
+                            e.target.value
+                          );
                         }}
                       />
                       <Field
@@ -138,7 +156,10 @@ const Form = ({ setFieldValue, values }: any) => {
                         label={t("question (ru)")}
                         size="large"
                         onChange={(e: any) => {
-                          setFieldValue(`questions[${index}].titleRu`, e.target.value)
+                          setFieldValue(
+                            `questions[${index}].titleRu`,
+                            e.target.value
+                          );
                         }}
                       />
                       <Field
@@ -150,25 +171,48 @@ const Form = ({ setFieldValue, values }: any) => {
                         label={t("question (en)")}
                         size="large"
                         onChange={(e: any) => {
-                          setFieldValue(`questions[${index}].titleEn`, e.target.value)
+                          setFieldValue(
+                            `questions[${index}].titleEn`,
+                            e.target.value
+                          );
                         }}
                       />
                       <Field
                         component={Fields.Select}
                         name={`questions[${index}].type`}
                         label="type"
-                        placeholder={t("To'lov turini tanlang")}
+                        placeholder={t("Test turini tanlang")}
                         optionLabel="label"
-                        optionValue='value'
+                        optionValue="value"
                         isClearable={true}
                         options={[
                           {
-                            label: "1",
+                            label: t(
+                              "Oddiy ochiq test (O'quvchi variantlardan birini tanlaydi)"
+                            ),
                             value: 1,
                           },
                           {
-                            label: "2",
+                            label: t(
+                              "Oddiy yopiq test (O'quvchi savolga javob yozadi)"
+                            ),
                             value: 2,
+                          },
+                          {
+                            label: t(
+                              "Ochiq va yopiq test (O'quvchi variantlardan birini tanlaydi va savolga javob yozadi)"
+                            ),
+                            value: 3,
+                          },
+                          {
+                            label: t(
+                              "Geometrik chizmalari bor test (O'quvchi geometrik chizmalar chizadi)"
+                            ),
+                            value: 4,
+                          },
+                          {
+                            label: t("Hammasi"),
+                            value: 5,
                           },
                         ]}
                       />
@@ -188,7 +232,10 @@ const Form = ({ setFieldValue, values }: any) => {
                               label={t("answer (uz)")}
                               size="large"
                               onChange={(e: any) => {
-                                setFieldValue(`questions[${index}].answers[${idx}].answerUz`, e.target.value)
+                                setFieldValue(
+                                  `questions[${index}].answers[${idx}].answerUz`,
+                                  e.target.value
+                                );
                               }}
                             />
                             <Field
@@ -200,7 +247,10 @@ const Form = ({ setFieldValue, values }: any) => {
                               label={t("answer (ru)")}
                               size="large"
                               onChange={(e: any) => {
-                                setFieldValue(`questions[${index}].answers[${idx}].answerRu`, e.target.value)
+                                setFieldValue(
+                                  `questions[${index}].answers[${idx}].answerRu`,
+                                  e.target.value
+                                );
                               }}
                             />
                             <Field
@@ -212,18 +262,29 @@ const Form = ({ setFieldValue, values }: any) => {
                               label={t("answer (en)")}
                               size="large"
                               onChange={(e: any) => {
-                                setFieldValue(`questions[${index}].answers[${idx}].answerEn`, e.target.value)
+                                setFieldValue(
+                                  `questions[${index}].answers[${idx}].answerEn`,
+                                  e.target.value
+                                );
                               }}
                             />
                             <Checkbox
                               className="mt-[20px]"
-                              checked={values.questions[index].answers[idx].isCorrect}
+                              checked={
+                                values.questions[index].answers[idx].isCorrect
+                              }
                               onChange={(e: any) => {
-                                const updatedAnswers = values.questions[index].answers.map((ans: any, ansIdx: number) => ({
+                                const updatedAnswers = values.questions[
+                                  index
+                                ].answers.map((ans: any, ansIdx: number) => ({
                                   ...ans,
-                                  isCorrect: ansIdx === idx ? e.target.checked : false,
+                                  isCorrect:
+                                    ansIdx === idx ? e.target.checked : false,
                                 }));
-                                setFieldValue(`questions[${index}].answers`, updatedAnswers);
+                                setFieldValue(
+                                  `questions[${index}].answers`,
+                                  updatedAnswers
+                                );
                               }}
                             >
                               true answer
@@ -235,24 +296,30 @@ const Form = ({ setFieldValue, values }: any) => {
                                 <button
                                   type="button"
                                   className="w-[30px] h-[100%] border-2 rounded-[5px] mb-[6px]"
-                                  onClick={() => removeAnsBox(item.uid, ans.uid)}
+                                  onClick={() =>
+                                    removeAnsBox(item.uid, ans.uid)
+                                  }
                                 >
-                                  <MinusCircleOutlined style={{ color: "red" }} />
+                                  <MinusCircleOutlined
+                                    style={{ color: "red" }}
+                                  />
                                 </button>
                               )}
-                              {(get(item, "answers", []).length - 1) === idx && (
+                              {get(item, "answers", []).length - 1 === idx && (
                                 <button
                                   type="button"
                                   className="w-[30px] h-[100%] border-2 rounded-[5px]"
                                   onClick={() => addAnsBox(item.uid)}
                                 >
-                                  <PlusCircleOutlined style={{ color: "#40a9ff" }} />
+                                  <PlusCircleOutlined
+                                    style={{ color: "#40a9ff" }}
+                                  />
                                 </button>
                               )}
                             </div>
                           </div>
                         </div>
-                      )
+                      );
                     })}
                   </div>
                 </div>
@@ -267,7 +334,7 @@ const Form = ({ setFieldValue, values }: any) => {
                         <MinusCircleOutlined style={{ color: "red" }} />
                       </button>
                     )}
-                    {(get(values, "questions", []).length - 1) === index && (
+                    {get(values, "questions", []).length - 1 === index && (
                       <button
                         type="button"
                         className="h-[30px] w-full border-2 rounded-[5px]"
@@ -279,7 +346,7 @@ const Form = ({ setFieldValue, values }: any) => {
                   </div>
                 </div>
               </div>
-            )
+            );
           })}
         </div>
       </div>
@@ -290,7 +357,7 @@ const Form = ({ setFieldValue, values }: any) => {
         className="mt-[10px] w-full"
       />
     </>
-  )
-}
+  );
+};
 
-export default Form
+export default Form;

@@ -16,14 +16,6 @@ interface MenuItem {
   route?: string;
 }
 
-const settingslist = [
-  { id: 1, title: "O'zbekcha", shortName: "O'z" },
-  { id: 2, title: "Русский", shortName: "Ру" },
-  { id: 3, title: "English", shortName: "En" },
-  { id: 4, title: "Settings", shortName: "St" },
-  { id: 5, title: "Tests", shortName: "Tc" },
-];
-
 const menuItems: MenuItem[] = [
   {
     key: "problems",
@@ -62,6 +54,18 @@ const menuItems: MenuItem[] = [
     route: "/test",
   },
   {
+    key: "products",
+    label: "Mahsulotlar",
+    icon: <AppstoreOutlined />,
+    route: "/products",
+  },
+  {
+    key: "resources",
+    label: "Resurslar",
+    icon: <AppstoreOutlined />,
+    route: "/resources",
+  },
+  {
     key: "charts",
     label: "Hisobotlar",
     icon: <LineChartOutlined />,
@@ -91,4 +95,4 @@ export default {
   menuItems,
 };
 
-export { gen4, settingslist };
+export { gen4 };

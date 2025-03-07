@@ -5,11 +5,13 @@ import { useHooks, usePost } from "hooks";
 import { Button } from "components";
 import { Container } from "modules";
 import Create from "./create";
+import More from "./more";
 
-const Subject = () => {
+const Resource = () => {
   const { Meta } = Card;
   const { get, queryClient, t } = useHooks();
   const [createModal, showCreateModal] = useState({ open: false, data: {} });
+  const [moreModal, showMoreModal] = useState({ open: false, data: {} });
   const { mutate } = usePost();
   const onDeleteHandler = (id: string) => {
     Modal.confirm({
@@ -23,10 +25,10 @@ const Subject = () => {
   const deleteAction = (id: string) => {
     if (id) {
       mutate(
-        { method: "delete", url: `/subjects/${id}`, data: null },
+        { method: "delete", url: `/resources/${id}`, data: null },
         {
           onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["subjects"] });
+            queryClient.invalidateQueries({ queryKey: ["resources"] });
             notification.success({
               message: t("Успешно удалена"),
               duration: 2,
@@ -51,21 +53,33 @@ const Subject = () => {
         centered
         title={
           get(createModal, "data._id")
-            ? t("Update subject")
-            : t("Create subject")
+            ? t("Update resource")
+            : t("Create resource")
         }
-        width={500}
+        width={700}
         destroyOnClose
       >
         <Create {...{ showCreateModal, createModal }} />
       </Modal>
+      <Modal
+        open={moreModal?.open}
+        onOk={() => showMoreModal({ open: true, data: {} })}
+        onCancel={() => showMoreModal({ open: false, data: {} })}
+        footer={null}
+        centered
+        title={t("More informaiton")}
+        width={700}
+        destroyOnClose
+      >
+        <More {...{ showMoreModal, moreModal }} />
+      </Modal>
       <div>
-        <Container.All name="subjects" url="/subjects">
+        <Container.All name="resources" url="/resources">
           {({ items }) => (
             <div>
               <div className="flex justify-between">
                 <Button
-                  title={t("Create subject")}
+                  title={t("Create resource")}
                   icon={<CreateDoc />}
                   size="large"
                   className="bg-[#002855]"
@@ -74,7 +88,10 @@ const Subject = () => {
               </div>
               <Row className="h-[120px] mt-[15px]">
                 {items.map((card) => (
-                  <Col className="cursor-pointer">
+                  <Col
+                    className="cursor-pointer"
+                    onClick={() => showMoreModal({ open: true, data: card })}
+                  >
                     <div className="mr-8 mb-4 w-[250px] h-[150px]">
                       <Meta
                         className="pb-[40px] p-0"
@@ -118,4 +135,4 @@ const Subject = () => {
   );
 };
 
-export default Subject;
+export default Resource;

@@ -57,6 +57,7 @@ const Login = () => {
                   {t("Please enter your admin credentials to login.")}
                 </p>
                 <FastField
+                  required={true}
                   name="username"
                   isLoginPage={true}
                   rootClassName="mb-7"
@@ -65,6 +66,7 @@ const Login = () => {
                   setFieldTouched={setFieldTouched}
                 />
                 <FastField
+                  required={true}
                   name="password"
                   type="password"
                   rootClassName="mb-7"
@@ -75,7 +77,7 @@ const Login = () => {
                   size="large"
                   htmlType="submit"
                   isLoading={isLoading}
-                  className="w-full h-auto"
+                  className="w-full h-[50px] mt-[24px] text-[16px] font-[600]"
                   title={isLoading ? t("Please wait a second") : t("Log in")}
                 />
               </div>

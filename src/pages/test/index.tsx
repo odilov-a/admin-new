@@ -1,13 +1,13 @@
 import { Button, DotBtn } from "components";
-import { Delete, Edit, CreateDoc } from "assets/images/icons";
+import { CreateDoc } from "assets/images/icons";
 import { useHooks, usePost } from "hooks";
-import { useState } from "react";
+// import { useState } from "react";
 import { Modal, notification, Table } from "antd";
 import Container from "modules/container";
 
 const Test = () => {
   const { get, queryClient, t, navigate } = useHooks();
-  const [createModal, showCreateModal] = useState({ open: false, data: {} });
+  // const [createModal, showCreateModal] = useState({ open: false, data: {} });
   const { mutate } = usePost();
 
   const onDeleteHandler = (row: any) => {
@@ -79,32 +79,23 @@ const Test = () => {
               </div>
               <Table
                 dataSource={items}
+                pagination={{ pageSize: 12 }}
                 columns={[
                   {
-                    key: "nameUz",
+                    key: "name",
                     align: "left",
-                    title: t("NameUz"),
-                    dataIndex: "nameUz",
+                    title: t("Name"),
+                    dataIndex: "name",
                     className: "w-[80px]",
                     render: (value) => (
                       <div className="flex items-center">{value}</div>
                     ),
                   },
                   {
-                    key: "nameEn",
+                    key: "subject",
                     align: "left",
-                    title: t("NameEn"),
-                    dataIndex: "nameEn",
-                    className: "w-[80px]",
-                    render: (value) => (
-                      <div className="flex items-center">{value}</div>
-                    ),
-                  },
-                  {
-                    key: "nameRu",
-                    align: "left",
-                    title: t("NameRu"),
-                    dataIndex: "nameRu",
+                    title: t("Subject"),
+                    dataIndex: "subject",
                     className: "w-[80px]",
                     render: (value) => (
                       <div className="flex items-center">{value}</div>
