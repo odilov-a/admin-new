@@ -49,7 +49,7 @@ const menuItems: MenuItem[] = [
   },
   {
     key: "test",
-    label: "Test",
+    label: "Testlar",
     icon: <OrderedListOutlined />,
     route: "/test",
   },
