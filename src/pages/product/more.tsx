@@ -7,7 +7,7 @@ const More = ({ showMoreModal, moreModal }: any) => {
     return <p>{t("Loading...")}</p>;
   }
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <div className="flex">
         <div className="mr-[30px]">
           <div className="flex items-center mb-[10px]">
@@ -17,10 +17,6 @@ const More = ({ showMoreModal, moreModal }: any) => {
           <div className="flex items-center mb-[10px]">
             <p className="mr-[20px]">{t("Price")}:</p>
             <b>{data.price}</b>&nbsp;{t("SO'M")}
-          </div>
-          <div className="flex items-center mb-[10px]">
-            <p className="mr-[20px]">{t("Description")}:</p>
-            <b>{data.description}</b>
           </div>
         </div>
       </div>

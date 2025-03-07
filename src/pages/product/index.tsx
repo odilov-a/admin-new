@@ -60,7 +60,7 @@ const Product = () => {
             ? t("Update product")
             : t("Create product")
         }
-        width={800}
+        width={700}
         destroyOnClose
       >
         <Create {...{ showCreateModal, createModal }} />
@@ -72,7 +72,7 @@ const Product = () => {
         footer={null}
         centered
         title={t("More informaiton")}
-        width={800}
+        width={400}
         destroyOnClose
       >
         <More {...{ showMoreModal, moreModal }} />
