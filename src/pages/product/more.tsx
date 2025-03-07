@@ -16,7 +16,7 @@ const More = ({ showMoreModal, moreModal }: any) => {
           </div>
           <div className="flex items-center mb-[10px]">
             <p className="mr-[20px]">{t("Price")}:</p>
-            <b>{data.price}</b>&nbsp;{t("SO'M")}
+            <b>{data.price.toLocaleString()}</b>&nbsp;{t("Point")}
           </div>
         </div>
       </div>
