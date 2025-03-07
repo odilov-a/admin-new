@@ -188,31 +188,21 @@ const Form = ({ setFieldValue, values }: any) => {
                         options={[
                           {
                             label: t(
-                              "Oddiy ochiq test (O'quvchi variantlardan birini tanlaydi)"
+                              "Ochiq test (O'quvchi variantlardan birini tanlaydi)"
                             ),
                             value: 1,
                           },
                           {
                             label: t(
-                              "Oddiy yopiq test (O'quvchi savolga javob yozadi)"
+                              "Yopiq test (O'quvchi savolga javob yozadi)"
                             ),
                             value: 2,
                           },
                           {
                             label: t(
-                              "Ochiq va yopiq test (O'quvchi variantlardan birini tanlaydi va savolga javob yozadi)"
+                              "Geometrik chizmali (O'quvchi geometrik chizma chizadi)"
                             ),
                             value: 3,
-                          },
-                          {
-                            label: t(
-                              "Geometrik chizmalari bor test (O'quvchi geometrik chizmalar chizadi)"
-                            ),
-                            value: 4,
-                          },
-                          {
-                            label: t("Hammasi"),
-                            value: 5,
                           },
                         ]}
                       />
