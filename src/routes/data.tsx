@@ -15,6 +15,7 @@ const TestUpdate = lazy(() => import("pages/test/update"));
 const Difficulty = lazy(() => import("pages/difficulty"));
 const Product = lazy(() => import("pages/product"));
 const Resource = lazy(() => import("pages/resource"));
+const Order = lazy(() => import("pages/order"));
 const LocalizationPanel = lazy(() => import("pages/localizationPanel"));
 
 export interface IRoute {
@@ -122,6 +123,12 @@ const privateRoutes: IRoute[] = [
     key: "resources",
     title: "Resurslar",
     element: <Resource />,
+  },
+  {
+    path: "/orders",
+    key: "orders",
+    title: "Buyurtmalar",
+    element: <Order />,
   },
   {
     path: "/translations",

@@ -75,10 +75,6 @@ const Problems = () => {
               return (
                 <div>
                   <div className="page-heading">
-                    {/* <p className="page-heading__title">
-                      {t("FAQ")}
-                      <p className="page-heading__subtitle">{items.length} {t("FAQ")}</p>
-                    </p> */}
                     <div className="page-heading__right">
                       {/* <Fields.Search
                         type="text"

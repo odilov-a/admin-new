@@ -66,6 +66,12 @@ const menuItems: MenuItem[] = [
     route: "/resources",
   },
   {
+    key: "orders",
+    label: "Buyurtmalar",
+    icon: <AppstoreOutlined />,
+    route: "/orders",
+  },
+  {
     key: "charts",
     label: "Hisobotlar",
     icon: <LineChartOutlined />,

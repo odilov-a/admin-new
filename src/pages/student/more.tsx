@@ -5,7 +5,7 @@ const More = ({ showMoreModal, moreModal }: any) => {
   const data = moreModal?.data;
   const { t } = useHooks();
   if (!data) {
-    return <p>{t("Loading...")}</p>;
+    return <p>{t("Loading")}...</p>;
   }
   return (
     <div>
