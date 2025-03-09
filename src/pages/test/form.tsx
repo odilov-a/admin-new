@@ -343,7 +343,7 @@ const Form = ({ setFieldValue, values }: any) => {
       <Button
         htmlType="submit"
         size="large"
-        title={t("Создать")}
+        title={t("Save")}
         className="mt-[10px] w-full"
       />
     </>
