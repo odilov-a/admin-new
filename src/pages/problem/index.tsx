@@ -1,20 +1,12 @@
-import { Modal, notification, Pagination, Table } from "antd";
-import { useState } from "react";
-
+import { Modal, notification, Table } from "antd";
 import { Button, DotBtn } from "components";
-import { useHooks, useDebounce, usePost } from "hooks";
+import { useHooks, usePost } from "hooks";
 import Container from "modules/container";
 import { CreateDoc } from "assets/images/icons";
-import Fields from "components/fields";
 
 const Problems = () => {
-  const { t, qs, get, location, queryClient, navigate } = useHooks();
+  const { t, get, queryClient, navigate } = useHooks();
   const { mutate } = usePost();
-  const [page, setPage] = useState<number>(1);
-  const [query, setQuery] = useState("");
-  const searchQuery = useDebounce(query, 600);
-
-  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
 
   const onDeleteHandler = (row: any) => {
     const id = get(row, "_id");
@@ -58,32 +50,12 @@ const Problems = () => {
     <>
       <div className="content-panel">
         <div>
-          <Container.All
-            url="/problems"
-            name="problems"
-            // params={{
-            //   limit: 5,
-            //   page,
-            //   extra: {
-            //     search: searchQuery,
-            //     start: params.start && params.start,
-            //     end: params.end && params.end
-            //   }
-            // }}
-          >
+          <Container.All url="/problems" name="problems">
             {({ meta, items }) => {
               return (
                 <div>
                   <div className="page-heading">
                     <div className="page-heading__right">
-                      {/* <Fields.Search
-                        type="text"
-                        text={t("Qidiruv")}
-                        onSearch={setQuery}
-                        className="mr-[20px] w-[50%!important]"
-                        value={query}
-                        {...{ setPage }}
-                      /> */}
                       <Button
                         icon={<CreateDoc />}
                         title={t("Qo'shish")}
@@ -134,16 +106,6 @@ const Problems = () => {
                       },
                     ]}
                   />
-                  {/* {meta && meta.perPage && (
-                    <div className="pt-[20px] flex justify-end">
-                      <Pagination
-                        current={meta.currentPage}
-                        pageSize={meta.perPage}
-                        total={meta.totalCount}
-                        onChange={setPage}
-                      />
-                    </div>
-                  )} */}
                 </div>
               );
             }}

@@ -1,13 +1,11 @@
 import { Button, DotBtn } from "components";
 import { CreateDoc } from "assets/images/icons";
 import { useHooks, usePost } from "hooks";
-// import { useState } from "react";
 import { Modal, notification, Table } from "antd";
 import Container from "modules/container";
 
 const Test = () => {
   const { get, queryClient, t, navigate } = useHooks();
-  // const [createModal, showCreateModal] = useState({ open: false, data: {} });
   const { mutate } = usePost();
 
   const onDeleteHandler = (row: any) => {
@@ -50,30 +48,17 @@ const Test = () => {
 
   return (
     <div>
-      <Container.All
-        url="/tests"
-        name="tests"
-      // params={{
-      //   limit: 5,
-      //   page,
-      //   extra: {
-      //     search: searchQuery,
-      //     start: params.start && params.start,
-      //     end: params.end && params.end
-      //   }
-      // }}
-      >
+      <Container.All url="/tests" name="tests">
         {({ meta, items }) => {
           return (
             <div>
               <div className="page-heading">
                 <div className="page-heading__right">
                   <Button
-                    title={t("Create test")}
-                    icon={<CreateDoc />}
                     size="large"
-                    className="bg-[#002855]"
-                    onClick={() => navigate('/test/create')}
+                    icon={<CreateDoc />}
+                    title={t("Create test")}
+                    onClick={() => navigate("/test/create")}
                   />
                 </div>
               </div>
@@ -127,22 +112,12 @@ const Test = () => {
                   },
                 ]}
               />
-              {/* {meta && meta.perPage && (
-                    <div className="pt-[20px] flex justify-end">
-                      <Pagination
-                        current={meta.currentPage}
-                        pageSize={meta.perPage}
-                        total={meta.totalCount}
-                        onChange={setPage}
-                      />
-                    </div>
-                  )} */}
             </div>
           );
         }}
       </Container.All>
     </div>
-  )
-}
+  );
+};
 
-export default Test
+export default Test;

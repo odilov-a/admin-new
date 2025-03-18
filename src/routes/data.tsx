@@ -31,7 +31,7 @@ const privateRoutes: IRoute[] = [
   {
     path: "/",
     key: "welcome",
-    title: "Welcome",
+    title: "",
     element: <Default />,
   },
   {

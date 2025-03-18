@@ -1,9 +1,7 @@
-// import { useState } from "react";
 import { PlusCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { Field } from "formik";
 
 import { Fields, Button } from "components";
-// import { helpers, utils } from "services";
 import { useHooks } from "hooks";
 import { gen4 } from "services/helpers";
 import { Checkbox } from "antd";
@@ -20,10 +18,16 @@ const Form = ({ setFieldValue, values }: any) => {
     setFieldValue("questions", [
       ...values.questions,
       {
-        // productId: null,
         uid: gen4(),
+        photoUrl: "",
         answers: [
-          { answerUz: "", answerRu: "", answerEn: "", isCorrect: false },
+          {
+            answerUz: "",
+            answerRu: "",
+            answerEn: "",
+            isCorrect: false,
+            uid: gen4(),
+          },
         ],
       },
     ]);
@@ -63,24 +67,24 @@ const Form = ({ setFieldValue, values }: any) => {
         <div className="flex justify-between mb-[30px]">
           <div className="w-[49%]">
             <Field
-              component={Fields.Input}
-              name="nameUz"
               type="text"
+              name="nameUz"
               label={t("nameUz")}
+              component={Fields.Input}
               placeholder={t("nameUz")}
             />
             <Field
-              component={Fields.Input}
-              name="nameRu"
               type="text"
+              name="nameRu"
               label={t("nameRu")}
+              component={Fields.Input}
               placeholder={t("nameRu")}
             />
             <Field
-              component={Fields.Input}
-              name="nameEn"
               type="text"
+              name="nameEn"
               label={t("nameEn")}
+              component={Fields.Input}
               placeholder={t("nameEn")}
             />
           </div>
@@ -100,25 +104,13 @@ const Form = ({ setFieldValue, values }: any) => {
               rootClassName="mb-[10px] w-full mr-[10px]"
             />
             <Field
-              component={Fields.Input}
-              name="point"
               type="text"
+              name="point"
               label={t("point")}
               placeholder={t("point")}
+              component={Fields.Input}
               rootClassName="mb-[15px]"
             />
-            {/* <div className="col-span-2">
-              <p className="text-[#9EA3B5] px-[12px] py-[6px] bg-[#E6ECFE] dark:bg-[#454d70] rounded-[6px] inline-block mb-[12px] mr-[10px]">
-                {t("photo")}
-              </p>
-              <Field
-                name="photoUrl"
-                label={t("Photo")}
-                placeholder={t("Photo")}
-                component={Fields.FileUpload3}
-                accept="image/png, image/jpeg, image/jpg"
-              />
-            </div> */}
           </div>
         </div>
         <div className="mb-[24px]">
@@ -133,13 +125,13 @@ const Form = ({ setFieldValue, values }: any) => {
                   <div className="w-[48%] flex">
                     <div className="w-full">
                       <Field
-                        rootClassName="w-full mr-[10px] mb-[15px]"
-                        component={Fields.Input}
-                        name={`questions[${index}].titleUz`}
                         type="text"
-                        placeholder={t("question (uz)")}
-                        label={t("question (uz)")}
                         size="large"
+                        component={Fields.Input}
+                        label={t("question (uz)")}
+                        placeholder={t("question (uz)")}
+                        name={`questions[${index}].titleUz`}
+                        rootClassName="w-full mr-[10px] mb-[15px]"
                         onChange={(e: any) => {
                           setFieldValue(
                             `questions[${index}].titleUz`,
@@ -148,13 +140,13 @@ const Form = ({ setFieldValue, values }: any) => {
                         }}
                       />
                       <Field
-                        rootClassName="w-full mr-[10px] mb-[15px]"
-                        component={Fields.Input}
-                        name={`questions[${index}].titleRu`}
                         type="text"
-                        placeholder={t("question (ru)")}
-                        label={t("question (ru)")}
                         size="large"
+                        component={Fields.Input}
+                        label={t("question (ru)")}
+                        placeholder={t("question (ru)")}
+                        name={`questions[${index}].titleRu`}
+                        rootClassName="w-full mr-[10px] mb-[15px]"
                         onChange={(e: any) => {
                           setFieldValue(
                             `questions[${index}].titleRu`,
@@ -163,13 +155,13 @@ const Form = ({ setFieldValue, values }: any) => {
                         }}
                       />
                       <Field
-                        rootClassName="w-full mr-[10px] mb-[15px]"
-                        component={Fields.Input}
-                        name={`questions[${index}].titleEn`}
                         type="text"
-                        placeholder={t("question (en)")}
-                        label={t("question (en)")}
                         size="large"
+                        component={Fields.Input}
+                        label={t("question (en)")}
+                        placeholder={t("question (en)")}
+                        name={`questions[${index}].titleEn`}
+                        rootClassName="w-full mr-[10px] mb-[15px]"
                         onChange={(e: any) => {
                           setFieldValue(
                             `questions[${index}].titleEn`,
@@ -185,6 +177,7 @@ const Form = ({ setFieldValue, values }: any) => {
                         optionLabel="label"
                         optionValue="value"
                         isClearable={true}
+                        rootClassName="w-full mr-[10px] mb-[15px]"
                         options={[
                           {
                             label: t(
@@ -206,6 +199,37 @@ const Form = ({ setFieldValue, values }: any) => {
                           },
                         ]}
                       />
+                      <div className="w-full">
+                        <p className="text-[#9EA3B5] px-[12px] py-[6px] bg-[#E6ECFE] dark:bg-[#454d70] rounded-[6px] inline-block mb-[12px] mr-[10px]">
+                          {t("question as photo format")}
+                        </p>
+                        <Field
+                          type="file"
+                          accept="image/*"
+                          value={undefined}
+                          rootClassName="mb-[10px]"
+                          component={Fields.FileUpload3}
+                          name={`questions[${index}].photoUrl`}
+                          onChange={(event: any) => {
+                            const files = event.target.files;
+                            if (files && files.length > 0) {
+                              setFieldValue(
+                                `questions[${index}].photoUrl`,
+                                files[0]
+                              );
+                            }
+                          }}
+                        />
+                        {item.photoUrl && typeof item.photoUrl === "string" && (
+                          <div className="mt-2">
+                            <img
+                              alt="Preview"
+                              src={item.photoUrl}
+                              className="max-w-[200px] rounded"
+                            />
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                   <div className="w-[48%]">
@@ -214,13 +238,13 @@ const Form = ({ setFieldValue, values }: any) => {
                         <div key={index} className="flex mb-[30px]">
                           <div className="w-full">
                             <Field
-                              rootClassName="w-full mr-[10px] mb-[15px]"
-                              component={Fields.Input}
-                              name={`questions[${index}].answers[${idx}].answerUz`}
                               type="text"
-                              placeholder={t("answer (uz)")}
-                              label={t("answer (uz)")}
                               size="large"
+                              component={Fields.Input}
+                              label={t("answer (uz)")}
+                              placeholder={t("answer (uz)")}
+                              rootClassName="w-full mr-[10px] mb-[15px]"
+                              name={`questions[${index}].answers[${idx}].answerUz`}
                               onChange={(e: any) => {
                                 setFieldValue(
                                   `questions[${index}].answers[${idx}].answerUz`,
@@ -229,13 +253,13 @@ const Form = ({ setFieldValue, values }: any) => {
                               }}
                             />
                             <Field
-                              rootClassName="w-full mr-[10px] mb-[15px]"
-                              component={Fields.Input}
-                              name={`questions[${index}].answers[${idx}].answerRu`}
                               type="text"
-                              placeholder={t("answer (ru)")}
-                              label={t("answer (ru)")}
                               size="large"
+                              label={t("answer (ru)")}
+                              component={Fields.Input}
+                              placeholder={t("answer (ru)")}
+                              rootClassName="w-full mr-[10px] mb-[15px]"
+                              name={`questions[${index}].answers[${idx}].answerRu`}
                               onChange={(e: any) => {
                                 setFieldValue(
                                   `questions[${index}].answers[${idx}].answerRu`,
@@ -244,13 +268,13 @@ const Form = ({ setFieldValue, values }: any) => {
                               }}
                             />
                             <Field
-                              rootClassName="w-full mr-[10px]"
-                              component={Fields.Input}
-                              name={`questions[${index}].answers[${idx}].answerEn`}
                               type="text"
-                              placeholder={t("answer (en)")}
-                              label={t("answer (en)")}
                               size="large"
+                              component={Fields.Input}
+                              label={t("answer (en)")}
+                              placeholder={t("answer (en)")}
+                              rootClassName="w-full mr-[10px]"
+                              name={`questions[${index}].answers[${idx}].answerEn`}
                               onChange={(e: any) => {
                                 setFieldValue(
                                   `questions[${index}].answers[${idx}].answerEn`,
@@ -277,7 +301,7 @@ const Form = ({ setFieldValue, values }: any) => {
                                 );
                               }}
                             >
-                              true answer
+                              {t("true answer")}
                             </Checkbox>
                           </div>
                           <div className="h-full contents">
@@ -341,9 +365,9 @@ const Form = ({ setFieldValue, values }: any) => {
         </div>
       </div>
       <Button
-        htmlType="submit"
         size="large"
         title={t("Save")}
+        htmlType="submit"
         className="mt-[10px] w-full"
       />
     </>

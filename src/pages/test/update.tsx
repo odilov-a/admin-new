@@ -1,12 +1,7 @@
-// import { useState } from "react";
 import { notification, Spin } from "antd";
-// import { Field } from "formik";
-
 import { Container } from "modules";
 import { useGet, useHooks } from "hooks";
 import { gen4 } from "services/helpers";
-// import { utils } from "services";
-// import { Fields } from "components";
 
 import Form from "./form";
 
@@ -59,11 +54,6 @@ const TestCreate = (): JSX.Element => {
             type: "number",
             value: get(data, "point", null),
           },
-          // {
-          //   name: "photoUrl",
-          //   type: "any",
-          //   value: get(data, "photoUrl", null),
-          // },
           {
             name: "questions",
             type: "array",
@@ -74,14 +64,17 @@ const TestCreate = (): JSX.Element => {
                       ...prev,
                       {
                         uid: gen4(),
+                        _id: curr._id,
                         titleUz: curr.titleUz,
                         titleRu: curr.titleRu,
                         titleEn: curr.titleEn,
                         type: curr.type,
+                        photoUrl: curr.photoUrl,
                         answers: get(curr, "answers", []).map((item: any) =>
                           get(curr, "answers", []).length > 0
                             ? {
                                 uid: gen4(),
+                                _id: item._id,
                                 answerUz: item.answerUz,
                                 answerRu: item.answerRu,
                                 answerEn: item.answerEn,
@@ -89,6 +82,7 @@ const TestCreate = (): JSX.Element => {
                               }
                             : {
                                 uid: gen4(),
+                                photoUrl: "",
                                 answerUz: "",
                                 answerRu: "",
                                 answerEn: "",
@@ -105,6 +99,7 @@ const TestCreate = (): JSX.Element => {
                       titleUz: "",
                       titleRu: "",
                       titleEn: "",
+                      photoUrl: "",
                       type: 1,
                       answers: [
                         {
@@ -119,11 +114,14 @@ const TestCreate = (): JSX.Element => {
                   ],
             onSubmitValue: (value, values) =>
               value.map((item: any, idx: any) => ({
+                _id: item._id,
                 titleUz: item.titleUz,
                 titleRu: item.titleRu,
                 titleEn: item.titleEn,
+                photoUrl: item.photoUrl,
                 type: item.type.value,
                 answers: get(item, "answers", []).map((ans: any) => ({
+                  _id: ans._id,
                   answerUz: ans.answerUz,
                   answerRu: ans.answerRu,
                   answerEn: ans.answerEn,
