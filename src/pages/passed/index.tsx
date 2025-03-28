@@ -9,37 +9,32 @@ const Passed = () => {
       title: t("Student Name"),
       dataIndex: ["student", "name"],
       key: "studentName",
-      render: (text: any) => <span>{text}</span>,
     },
     {
       title: t("Test Name"),
       dataIndex: ["test", "name"],
       key: "testName",
-      render: (text: any) => <span>{text}</span>,
     },
     {
       title: t("Total Questions"),
       dataIndex: ["stats", "totalQuestions"],
       key: "totalQuestions",
-      render: (text: any) => <span>{text}</span>,
     },
     {
       title: t("Correct Answers"),
       dataIndex: ["stats", "correctAnswers"],
       key: "correctAnswers",
-      render: (text: any) => <span>{text}</span>,
     },
     {
       title: t("Incorrect Answers"),
       dataIndex: ["stats", "incorrectAnswers"],
       key: "incorrectAnswers",
-      render: (text: any) => <span>{text}</span>,
     },
     {
       title: t("Created At"),
       dataIndex: "createdAt",
       key: "createdAt",
-      render: (text: any) => <span>{new Date(text).toLocaleDateString()}</span>,
+      render: (text: string) => new Date(text).toLocaleString(),
     },
   ];
 
@@ -52,8 +47,8 @@ const Passed = () => {
               columns={columns}
               dataSource={items}
               pagination={{ pageSize: 10 }}
-              rowKey="_id"
-              className="dark:bg-gray-800 dark:text-white"
+              rowKey="id"
+              style={{ backgroundColor: "inherit", color: "inherit" }}
             />
           </div>
         )}

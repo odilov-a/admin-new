@@ -5,11 +5,13 @@ import { useHooks, usePost } from "hooks";
 import { Button } from "components";
 import { Container } from "modules";
 import Create from "./create";
+import More from "./more";
 
 const Arena = () => {
   const { Meta } = Card;
   const { get, queryClient, t } = useHooks();
   const [createModal, showCreateModal] = useState({ open: false, data: {} });
+  const [moreModal, showMoreModal] = useState({ open: false, data: {} });
   const { mutate } = usePost();
   const onDeleteHandler = (id: string) => {
     Modal.confirm({
@@ -52,10 +54,22 @@ const Arena = () => {
         title={
           get(createModal, "data._id") ? t("Update arena") : t("Create arena")
         }
-        width={500}
+        width={600}
         destroyOnClose
       >
         <Create {...{ showCreateModal, createModal }} />
+      </Modal>
+      <Modal
+        open={moreModal?.open}
+        onOk={() => showMoreModal({ open: true, data: {} })}
+        onCancel={() => showMoreModal({ open: false, data: {} })}
+        footer={null}
+        centered
+        title={t("More informaiton")}
+        width={600}
+        destroyOnClose
+      >
+        <More {...{ showMoreModal, moreModal }} />
       </Modal>
       <div>
         <Container.All name="arena" url="/arena">
@@ -63,16 +77,18 @@ const Arena = () => {
             <div>
               <div className="flex justify-between">
                 <Button
-                  title={t("Create arena")}
-                  icon={<CreateDoc />}
                   size="large"
-                  className="bg-[#002855]"
+                  icon={<CreateDoc />}
+                  title={t("Create arena")}
                   onClick={() => showCreateModal({ open: true, data: {} })}
                 />
               </div>
               <Row className="h-[120px] mt-[15px]">
                 {items.map((card) => (
-                  <Col className="cursor-pointer">
+                  <Col
+                    className="cursor-pointer"
+                    onClick={() => showMoreModal({ open: true, data: card })}
+                  >
                     <div className="mr-8 mb-4 w-[250px] h-[150px]">
                       <Meta
                         className="pb-[40px] p-0"

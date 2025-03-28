@@ -114,7 +114,6 @@ const Student = () => {
                   <Button
                     size="large"
                     icon={<CreateDoc />}
-                    className="bg-[#002855]"
                     title={t("Create student")}
                     onClick={() => showCreateModal({ open: true, data: {} })}
                   />

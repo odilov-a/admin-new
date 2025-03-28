@@ -65,10 +65,9 @@ const Subject = () => {
             <div>
               <div className="flex justify-between">
                 <Button
-                  title={t("Create subject")}
-                  icon={<CreateDoc />}
                   size="large"
-                  className="bg-[#002855]"
+                  icon={<CreateDoc />}
+                  title={t("Create subject")}
                   onClick={() => showCreateModal({ open: true, data: {} })}
                 />
               </div>

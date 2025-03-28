@@ -32,6 +32,18 @@ const Arena = ({ showCreateModal, createModal }: any): JSX.Element => {
             name: "titleEn",
             value: get(data, "titleEn"),
           },
+          {
+            type: "any",
+            required: true,
+            name: "problems",
+            value: get(data, "problems"),
+          },
+          {
+            type: "any",
+            required: true,
+            name: "groups",
+            value: get(data, "groups"),
+          },
         ]}
         onSuccess={(data, resetForm, query) => {
           query.invalidateQueries({ queryKey: ["arena"] });
@@ -45,39 +57,69 @@ const Arena = ({ showCreateModal, createModal }: any): JSX.Element => {
           });
         }}
       >
-        {({ isLoading }) => {
+        {({ isLoading, setFieldValue }) => {
           return (
             <Spin spinning={isLoading} tip={t("Verifying")}>
               <div className="mt-5">
+                <div className="flex justify-between mb-3">
+                  <Field
+                    required
+                    name="titleUz"
+                    component={Fields.Input}
+                    rootClassName="mr-2"
+                    label={t("arena uzbek")}
+                    placeholder={t("arena uzbek")}
+                  />
+                  <Field
+                    required
+                    name="titleRu"
+                    component={Fields.Input}
+                    rootClassName="mr-2"
+                    label={t("arena rus")}
+                    placeholder={t("arena rus")}
+                  />
+                  <Field
+                    required
+                    name="titleEn"
+                    component={Fields.Input}
+                    label={t("arena eng")}
+                    placeholder={t("arena eng")}
+                  />
+                </div>
                 <Field
                   required
-                  name="titleUz"
-                  component={Fields.Input}
-                  rootClassName="mb-[10px]"
-                  label={t("arena uzbek")}
-                  placeholder={t("arena uzbek")}
+                  name="problems"
+                  url="/problems/true"
+                  isMulti={true}
+                  optionValue="_id"
+                  optionLabel="title"
+                  label={t("problems")}
+                  placeholder={t("problems")}
+                  component={Fields.AsyncSelect}
+                  onChange={(value: any) => {
+                    setFieldValue("problems", value);
+                  }}
                 />
                 <Field
                   required
-                  name="titleRu"
-                  component={Fields.Input}
-                  rootClassName="mb-[10px]"
-                  label={t("arena rus")}
-                  placeholder={t("arena rus")}
-                />
-                <Field
-                  required
-                  name="titleEn"
-                  component={Fields.Input}
-                  rootClassName="mb-[10px]"
-                  label={t("arena eng")}
-                  placeholder={t("arena eng")}
+                  name="groups"
+                  isMulti={true}
+                  url="/groups"
+                  optionValue="_id"
+                  optionLabel="name"
+                  label={t("groups")}
+                  placeholder={t("groups")}
+                  component={Fields.AsyncSelect}
+                  rootClassName="mb-[15px]"
+                  onChange={(value: any) => {
+                    setFieldValue("groups", value);
+                  }}
                 />
                 <Button
                   size="large"
                   title={t("Save")}
                   htmlType="submit"
-                  className="w-full mt-[10px]"
+                  className="w-full"
                 />
               </div>
             </Spin>

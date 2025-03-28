@@ -79,10 +79,9 @@ const Resource = () => {
             <div>
               <div className="flex justify-between">
                 <Button
-                  title={t("Create resource")}
-                  icon={<CreateDoc />}
                   size="large"
-                  className="bg-[#002855]"
+                  icon={<CreateDoc />}
+                  title={t("Create resource")}
                   onClick={() => showCreateModal({ open: true, data: {} })}
                 />
               </div>

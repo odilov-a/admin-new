@@ -84,10 +84,9 @@ const Product = () => {
               <div>
                 <div className="flex justify-between">
                   <Button
-                    title={t("Create product")}
-                    icon={<CreateDoc />}
                     size="large"
-                    className="bg-[#002855]"
+                    icon={<CreateDoc />}
+                    title={t("Create product")}
                     onClick={() => showCreateModal({ open: true, data: {} })}
                   />
                 </div>

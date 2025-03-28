@@ -84,10 +84,9 @@ const Teacher = () => {
               <div>
                 <div className="flex justify-between">
                   <Button
-                    title={t("Create teacher")}
-                    icon={<CreateDoc />}
                     size="large"
-                    className="bg-[#002855]"
+                    icon={<CreateDoc />}
+                    title={t("Create teacher")}
                     onClick={() => showCreateModal({ open: true, data: {} })}
                   />
                 </div>
