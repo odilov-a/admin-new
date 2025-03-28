@@ -16,6 +16,8 @@ const Difficulty = lazy(() => import("pages/difficulty"));
 const Product = lazy(() => import("pages/product"));
 const Resource = lazy(() => import("pages/resource"));
 const Order = lazy(() => import("pages/order"));
+const Passed = lazy(() => import("pages/passed"));
+const Arena = lazy(() => import("pages/arena"));
 const LocalizationPanel = lazy(() => import("pages/localizationPanel"));
 
 export interface IRoute {
@@ -129,6 +131,18 @@ const privateRoutes: IRoute[] = [
     key: "orders",
     title: "Buyurtmalar",
     element: <Order />,
+  },
+  {
+    path: "/passed",
+    key: "passed",
+    title: "Testlar natijalari",
+    element: <Passed />,
+  },
+  {
+    path: "/arena",
+    key: "arena",
+    title: "Arena",
+    element: <Arena />,
   },
   {
     path: "/translations",

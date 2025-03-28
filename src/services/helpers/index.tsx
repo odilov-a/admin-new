@@ -24,10 +24,22 @@ const menuItems: MenuItem[] = [
     route: "/problems",
   },
   {
+    key: "arena",
+    label: "Arena",
+    icon: <AppstoreOutlined />,
+    route: "/arena",
+  },
+  {
     key: "test",
     label: "Testlar",
     icon: <AppstoreOutlined />,
     route: "/test",
+  },
+  {
+    key: "passed",
+    label: "Test natijalari",
+    icon: <AppstoreOutlined />,
+    route: "/passed",
   },
   {
     key: "students",
