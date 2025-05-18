@@ -21,12 +21,12 @@ const menuItems: MenuItem[] = [
     icon: <AppstoreOutlined />,
     route: "/test",
   },
-  {
-    key: "arena",
-    label: "Arena",
-    icon: <AppstoreOutlined />,
-    route: "/arena",
-  },
+  // {
+  //   key: "arena",
+  //   label: "Arena",
+  //   icon: <AppstoreOutlined />,
+  //   route: "/arena",
+  // },
   {
     key: "passed",
     label: "Test natijalari",
@@ -75,12 +75,12 @@ const menuItems: MenuItem[] = [
     icon: <AppstoreOutlined />,
     route: "/subjects",
   },
-  {
-    key: "charts",
-    label: "Hisobotlar",
-    icon: <AppstoreOutlined />,
-    route: "/charts",
-  },
+  // {
+  //   key: "charts",
+  //   label: "Hisobotlar",
+  //   icon: <AppstoreOutlined />,
+  //   route: "/charts",
+  // },
   {
     key: "feedbacks",
     label: "Fikrlar",
